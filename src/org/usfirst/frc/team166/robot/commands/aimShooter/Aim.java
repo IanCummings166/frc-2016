@@ -1,4 +1,4 @@
-package org.usfirst.frc.team166.robot.commands.drive;
+package org.usfirst.frc.team166.robot.commands.aimShooter;
 
 import edu.wpi.first.wpilibj.command.Command;
 
@@ -7,25 +7,22 @@ import org.usfirst.frc.team166.robot.Robot;
 /**
  *
  */
-public class DriveWithJoysticks extends Command {
+public class Aim extends Command {
 
-	public DriveWithJoysticks() {
-		// Use requires() here to declare subsystem dependencies
-		// eg. requires(chassis);
-		requires(Robot.drive);
+	public Aim() {
+		requires(Robot.aimShooter);
 	}
 
 	// Called just before this Command runs the first time
 	@Override
 	protected void initialize() {
-		Robot.drive.setPIDConstants();
 	}
 
 	// Called repeatedly when this Command is scheduled to run
 	@Override
 	protected void execute() {
-		Robot.drive.getRightEncoder();
-		Robot.drive.driveWithJoysticks(Robot.oi.getLeftYAxis(), Robot.oi.getRightYAxis());
+		Robot.aimShooter.setAngle(Robot.vision.getDesiredShooterAngle());
+
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
@@ -37,12 +34,12 @@ public class DriveWithJoysticks extends Command {
 	// Called once after isFinished returns true
 	@Override
 	protected void end() {
-		Robot.drive.stop();
 	}
 
 	// Called when another command which requires one or more of the same
 	// subsystems is scheduled to run
 	@Override
 	protected void interrupted() {
+		Robot.aimShooter.disable();
 	}
 }

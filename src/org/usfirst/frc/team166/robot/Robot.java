@@ -4,11 +4,9 @@ import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import org.usfirst.frc.team166.robot.commands.Autonomous;
-import org.usfirst.frc.team166.robot.commands.aimShooter.Aim;
-import org.usfirst.frc.team166.robot.commands.roller.FeedBallIntoRoller;
+import org.usfirst.frc.team166.robot.commands.drive.LowGear;
 import org.usfirst.frc.team166.robot.subsystems.AManipulators;
 import org.usfirst.frc.team166.robot.subsystems.AimShooter;
 import org.usfirst.frc.team166.robot.subsystems.Drive;
@@ -41,6 +39,7 @@ public class Robot extends IterativeRobot {
 	public static OI oi;
 
 	Command autonomousCommand;
+	Command lowGearCommand;
 
 	/**
 	 * This function is run when the robot is first started up and should be used for any initialization code.
@@ -62,8 +61,10 @@ public class Robot extends IterativeRobot {
 		oi = new OI();
 		// instantiate the command used for the autonomous period
 		autonomousCommand = new Autonomous();
-		SmartDashboard.putData("Aim", new Aim());
-		SmartDashboard.putData("RunRollerSystem", new FeedBallIntoRoller());
+		lowGearCommand = new LowGear();
+		// SmartDashboard.putData("Aim", new Aim());
+		// SmartDashboard.putData("RunRollerSystem", new RollerSequence());
+		// SmartDashboard.putData("LadingProcess", new LoadingProcess());
 	}
 
 	@Override
@@ -75,7 +76,8 @@ public class Robot extends IterativeRobot {
 	public void autonomousInit() {
 		// schedule the autonomous command (example)
 		if (autonomousCommand != null)
-			autonomousCommand.start();
+			lowGearCommand.start();
+		autonomousCommand.start();
 	}
 
 	/**
@@ -93,7 +95,8 @@ public class Robot extends IterativeRobot {
 		// continue until interrupted by another command, remove
 		// this line or comment it out.
 		if (autonomousCommand != null)
-			autonomousCommand.cancel();
+			lowGearCommand.start();
+		autonomousCommand.cancel();
 	}
 
 	/**

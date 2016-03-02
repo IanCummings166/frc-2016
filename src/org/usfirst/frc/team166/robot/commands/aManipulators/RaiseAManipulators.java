@@ -1,45 +1,40 @@
-package org.usfirst.frc.team166.robot.commands.roller;
+package org.usfirst.frc.team166.robot.commands.aManipulators;
 
-import edu.wpi.first.wpilibj.Preferences;
 import edu.wpi.first.wpilibj.command.Command;
 
 import org.usfirst.frc.team166.robot.Robot;
-import org.usfirst.frc.team166.robot.RobotMap;
 
 /**
  *
  */
-public class FeedBallIntoShooter extends Command {
+public class RaiseAManipulators extends Command {
 
-	public FeedBallIntoShooter() {
-		requires(Robot.intakeRoller);
+	public RaiseAManipulators() {
 		// Use requires() here to declare subsystem dependencies
 		// eg. requires(chassis);
+		requires(Robot.aManipulators);
 	}
 
 	// Called just before this Command runs the first time
 	@Override
 	protected void initialize() {
-		double value = Preferences.getInstance().getDouble(RobotMap.Prefs.IntakeRollerRotations, 5);
-		Robot.intakeRoller.setDesiredRotation(value);
+		Robot.aManipulators.raiseAManipulators();
 	}
 
 	// Called repeatedly when this Command is scheduled to run
 	@Override
 	protected void execute() {
-		Robot.intakeRoller.start();
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
 	@Override
 	protected boolean isFinished() {
-		return Robot.intakeRoller.hasRotatedDesiredRotations();
+		return true;
 	}
 
 	// Called once after isFinished returns true
 	@Override
 	protected void end() {
-		Robot.intakeRoller.stop();
 	}
 
 	// Called when another command which requires one or more of the same

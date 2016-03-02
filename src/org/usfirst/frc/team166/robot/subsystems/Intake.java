@@ -20,21 +20,21 @@ public class Intake extends Subsystem {
 	public Intake() {
 		Actuator = new DoubleSolenoid(RobotMap.Solenoid.IntakeSolenoidForwards,
 				RobotMap.Solenoid.IntakeSolenoidBackwards);
-		IntakeCIM = new Victor(RobotMap.Pwm.IntakeVictor);
-		IntakeCIM2 = new Victor(RobotMap.Pwm.IntakeVictor2);
+		IntakeCIM = new Victor(RobotMap.Pwm.MainIntakeVictor);
+		IntakeCIM2 = new Victor(RobotMap.Pwm.CrossIntakeVictor);
 
 	}
 
 	// Motor Methods
 	public void intakeMotorForward() {
-		IntakeCIM.set(Preferences.getInstance().getDouble("Forward", .4));
-		IntakeCIM2.set(Preferences.getInstance().getDouble("Forward2", .4));
+		IntakeCIM.set(Preferences.getInstance().getDouble("Forward", 1.0));
+		IntakeCIM2.set(Preferences.getInstance().getDouble("Forward2", -1.0));
 
 	}
 
 	public void intakeMotorReverse() {
-		IntakeCIM.set(Preferences.getInstance().getDouble("Reverse", -.4));
-		IntakeCIM2.set(Preferences.getInstance().getDouble("Reverse2", -.4));
+		IntakeCIM.set(Preferences.getInstance().getDouble("Reverse", -1.0));
+		IntakeCIM2.set(Preferences.getInstance().getDouble("Reverse2", 1.0));
 	}
 
 	public void intakeMotorStop() {
@@ -70,10 +70,10 @@ public class Intake extends Subsystem {
 
 	public void toggleIntakeSolenoid() {
 		Value SolenoidVal = Actuator.get();
-		if (SolenoidVal == Value.kForward) {
-			raiseRake();
-		} else {
+		if (SolenoidVal == Value.kReverse) {
 			lowerRake();
+		} else {
+			raiseRake();
 
 		}
 	}

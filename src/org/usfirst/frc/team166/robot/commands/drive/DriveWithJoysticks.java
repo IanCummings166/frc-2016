@@ -25,12 +25,12 @@ public class DriveWithJoysticks extends Command {
 	@Override
 	protected void execute() {
 		Robot.drive.driveWithJoysticks(Robot.oi.getLeftYAxis(), Robot.oi.getRightYAxis());
-		Robot.aimShooter.maintainAngle(45);
 
 		SmartDashboard.putNumber("POT Angle", Robot.aimShooter.getShooterAngle());
+		SmartDashboard.putNumber("Pot Voltage", Robot.aimShooter.getPotVoltage());
 		SmartDashboard.putNumber("X Offset", Robot.vision.getXOffset());
 		SmartDashboard.putNumber("X Position", Robot.vision.getXPos());
-
+		Robot.drive.printGyroRate();
 		SmartDashboard.putNumber("Front Ultrasonic Distance", Robot.drive.getFrontUltrasonicVoltage());
 		SmartDashboard.putNumber("Distance Traveled", Robot.drive.getEncoderDistance());
 

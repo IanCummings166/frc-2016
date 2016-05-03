@@ -25,8 +25,8 @@ public class Aim extends Command {
 	// Called repeatedly when this Command is scheduled to run
 	@Override
 	protected void execute() {
-		if (Robot.vision.getDesiredShooterAngle() >= 45) {
-			Robot.intake.lowerRake();
+		if (Robot.vision.getDesiredShooterAngle() >= 45.0) {
+			// Robot.intake.lowerRake();
 		}
 		SmartDashboard.putNumber("Desired Angle", Robot.vision.getDesiredShooterAngle());
 		SmartDashboard.putNumber("POT Angle", Robot.aimShooter.getShooterAngle());

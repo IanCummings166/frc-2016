@@ -5,16 +5,16 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
 import org.usfirst.frc.team166.robot.commands.BatterShot;
 import org.usfirst.frc.team166.robot.commands.CancelShot;
+import org.usfirst.frc.team166.robot.commands.EjectBall;
 import org.usfirst.frc.team166.robot.commands.LoadingProcess;
 import org.usfirst.frc.team166.robot.commands.MediumRangeShot;
 import org.usfirst.frc.team166.robot.commands.aManipulators.ToggleAManipulators;
 import org.usfirst.frc.team166.robot.commands.drive.DriveWithGyro;
-import org.usfirst.frc.team166.robot.commands.drive.HighGear;
-import org.usfirst.frc.team166.robot.commands.drive.LowGear;
-import org.usfirst.frc.team166.robot.commands.drive.SpinLeft;
-import org.usfirst.frc.team166.robot.commands.drive.SpinRight;
 import org.usfirst.frc.team166.robot.commands.drive.ToggleDriveDirection;
-import org.usfirst.frc.team166.robot.commands.drive.TurnToGoal;
+import org.usfirst.frc.team166.robot.commands.drive.TurnFromLeftWall;
+import org.usfirst.frc.team166.robot.commands.drive.TurnFromRightWall;
+import org.usfirst.frc.team166.robot.commands.drive.TurnToGoalFast;
+import org.usfirst.frc.team166.robot.commands.drive.TurnToGoalWithGyro;
 import org.usfirst.frc.team166.robot.commands.intake.ToggleIntakeSolenoid;
 import org.usfirst.frc.team166.robot.commands.shooter.SetShooterSpeed;
 
@@ -53,13 +53,13 @@ public class OI {
 
 		// Buttons
 		leftJoyTrigger.whileHeld(new DriveWithGyro());
-		leftJoyButton3.whenPressed(new TurnToGoal());
+		leftJoyButton3.whenPressed(new TurnToGoalFast());
 		rightJoyTrigger.whenPressed(new ToggleDriveDirection());
 
-		rightJoyButton3.whenPressed(new HighGear());
-		rightJoyButton2.whenPressed(new LowGear());
-		rightJoyButton4.whileHeld(new SpinLeft());
-		rightJoyButton5.whileHeld(new SpinRight());
+		rightJoyButton3.whenPressed(new TurnToGoalWithGyro());
+		rightJoyButton2.whenPressed(new EjectBall());
+		rightJoyButton4.whileHeld(new TurnFromRightWall());
+		rightJoyButton5.whileHeld(new TurnFromLeftWall());
 		// rightJoyButton7.whenPressed(new Neutral());
 
 		// The Following commands are mapped from buttons on a joystick and may
@@ -73,8 +73,6 @@ public class OI {
 		CPbutton5.whenPressed(new ToggleIntakeSolenoid());
 		CPbutton6.whenPressed(new ToggleAManipulators());
 		CPbutton7.whenPressed(new SetShooterSpeed(1.0));
-		// Robot.copilotLeftTrigger.whenActive(new LoadingProcess());
-		// Robot.copilotRightTrigger.whenActive(new TestShoot());
 
 	}
 
@@ -92,6 +90,10 @@ public class OI {
 
 	public double getCopilotLeftTrigger() {
 		return copilotController.getRawAxis(2);
+	}
+
+	public double getCopilotLeftJoyUpDownAxis() {
+		return -copilotController.getRawAxis(1);
 	}
 
 }
